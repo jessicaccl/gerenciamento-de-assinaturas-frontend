@@ -1,0 +1,34 @@
+:root {
+  --cor-fundo: #f6f5fb;
+  --cor-fonte: #333340;
+}
+
+/* Global style */
+body {
+  background-color: var(--cor-fundo) !important;
+  color: var(--cor-fonte) !important;
+  font-family: 'Source Sans 3', sans-serif !important;
+}
+
+/* Reset CSS */
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+body {
+  font-size: 100%;
+  list-style-type: none;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; 
+}

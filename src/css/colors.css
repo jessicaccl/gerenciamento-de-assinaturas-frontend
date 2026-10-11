@@ -1,0 +1,29 @@
+:root {
+  /* Paleta Assina+ */
+  --branco: #FFF;
+  --branco-primario: #F6F5FB;
+  --branco-secundario: #DDD9E8;
+
+  --cor-primaria: #6D28D9;        /* roxo */
+  --cor-primaria-escura: #4C1D95;
+  --cor-primaria-profunda: #2E1065;
+  --cor-destaque: #059669;        /* verde (texto/ícones, contraste AA) */
+  --cor-destaque-clara: #10B981;  /* verde (fundos e detalhes) */
+
+  --cinza-primario: #585868;
+  --cinza-secundario: #3D3D4A;
+  --preto-primario: #0D0D12;
+
+  /* Cores Alertas */
+  --vermelho-perigo: #fa5a54;
+  --vermelho-primario: #d9534f;
+  --amarelo-atencao: #ffca2c;
+  --amarelo-primario: #f0ad4e;
+  --azul-informativo: #5bc0de;
+  --verde-sucesso: var(--cor-destaque);
+
+  --gradiente-marca: linear-gradient(135deg, var(--cor-primaria-escura) 0%, var(--cor-primaria) 55%, var(--cor-destaque-clara) 100%);
+
+  --cor-fonte: var(--cinza-secundario);
+  --cor-fundo: var(--branco-primario);
+}
