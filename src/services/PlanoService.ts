@@ -1,4 +1,5 @@
 import api from './api';
+import type { CicloDePreco } from '../types/Cobranca';
 
 export interface PlanoDto {
   id?: number;
@@ -21,6 +22,10 @@ const PlanoService = {
     const body = { ...data, id: id };
     
     const response = await api.put(`/planos/${id}`, body);
+    return response.data;
+  },
+  getCiclos: async (id: number): Promise<CicloDePreco[]> => {
+    const response = await api.get(`/planos/${id}/ciclos`);
     return response.data;
   },
   delete: async (id: number, senhaAdmin: string) => {   

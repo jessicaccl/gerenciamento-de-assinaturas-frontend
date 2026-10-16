@@ -6,6 +6,7 @@ import { Dashboard } from '../pages/Dashboard';
 import { Usuarios } from '../pages/Usuarios';
 import { Assinaturas } from '../pages/Assinaturas';
 import { Perfil } from '../pages/Perfil';
+import { Cobrancas } from '../pages/Cobrancas';
 
 // Sem token salvo, qualquer rota interna volta para o login
 function RotaPrivada({ children }: { children: ReactNode }) {
@@ -26,6 +27,8 @@ export function AppRoutes() {
         <Route path="/usuarios" element={<RotaPrivada><Usuarios /></RotaPrivada>} />
 
         <Route path="/assinaturas" element={<RotaPrivada><Assinaturas /></RotaPrivada>} />
+
+        <Route path="/cobrancas" element={<RotaPrivada><Cobrancas /></RotaPrivada>} />
 
         <Route path="/perfil" element={<RotaPrivada><Perfil /></RotaPrivada>} />
 

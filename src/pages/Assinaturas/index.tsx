@@ -237,6 +237,7 @@ export function Assinaturas() {
                                     <Form.Select value={editCiclo} onChange={e => setEditCiclo(e.target.value)}>
                                         <option value="Mensal">Mensal</option>
                                         <option value="Trimestral">Trimestral</option>
+                                        <option value="Semestral">Semestral</option>
                                         <option value="Anual">Anual</option>
                                     </Form.Select>
                                 </Form.Group>

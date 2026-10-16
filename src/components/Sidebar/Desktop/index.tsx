@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { FaChartPie, FaUserFriends, FaBoxOpen, FaFileInvoiceDollar } from "react-icons/fa";
+import { FaChartPie, FaUserFriends, FaBoxOpen, FaFileInvoiceDollar, FaReceipt } from "react-icons/fa";
 import { MdOutlineExitToApp } from "react-icons/md";
 import { BiUserCircle } from "react-icons/bi";
 
@@ -67,6 +67,16 @@ function Sidebar({ logOut, user }: SidebarProps) {
             >
               <FaFileInvoiceDollar title="Assinaturas" />
               <span className="label-sidebar">Assinaturas</span>
+            </div>
+          </div>
+
+          <div className="sidebar-nav-item">
+            <div
+              onClick={() => navigateTo("/cobrancas")}
+              className={`area-icons-label ${isActive('/cobrancas') ? 'active' : ''}`}
+            >
+              <FaReceipt title="Cobranças" />
+              <span className="label-sidebar">Cobranças</span>
             </div>
           </div>
 

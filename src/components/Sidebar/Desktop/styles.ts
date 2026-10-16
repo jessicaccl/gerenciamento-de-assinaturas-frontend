@@ -81,7 +81,7 @@ export const SidebarStyle = styled.aside<SidebarStyleProps>`
   }
 
   .logo-area {
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -101,7 +101,7 @@ export const SidebarStyle = styled.aside<SidebarStyleProps>`
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 0.8rem; 
+    gap: 0.4rem; 
     flex: 1; 
   }
 
@@ -118,7 +118,7 @@ export const SidebarStyle = styled.aside<SidebarStyleProps>`
     justify-content: center;
     
     width: 100%;
-    padding: 14px 0; 
+    padding: 10px 0; 
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -155,8 +155,8 @@ export const SidebarStyle = styled.aside<SidebarStyleProps>`
     align-items: center;
     margin-bottom: 1.5rem;
     border-top: 1px solid #f0f0f0;
-    padding-top: 1.5rem;
-    gap: 1.5rem;    
+    padding-top: 1rem;
+    gap: 1rem;    
     padding-bottom: 10px;
   }
 

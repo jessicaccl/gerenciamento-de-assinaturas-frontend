@@ -14,6 +14,7 @@ import AssinaturaService from '../../services/AssinaturaService';
 import AuthService from '../../services/AuthService';
 import { mensagemDeErro } from '../../services/api';
 import type { Plano } from '../../types/Plano';
+import type { CicloDePreco } from '../../types/Cobranca';
 
 import {
   MainWrapper, GridPlanos, CardPlano, ButtonNew, ActionButton, ButtonSubscribe
@@ -40,6 +41,7 @@ export function Planos() {
   const [selectedPlano, setSelectedPlano] = useState<Plano | null>(null);
   const [subCliente, setSubCliente] = useState('');
   const [subCiclo, setSubCiclo] = useState('Mensal');
+  const [ciclos, setCiclos] = useState<CicloDePreco[]>([]);
   const [subPagamento, setSubPagamento] = useState('Cartão de Crédito');
 
   async function loadPlanos() {
@@ -130,7 +132,9 @@ export function Planos() {
     setSubCliente('');
     setSubCiclo('Mensal');
     setSubPagamento('Cartão de Crédito');
+    setCiclos([]);
     setShowSubscribeModal(true);
+    PlanoService.getCiclos(plano.id).then(setCiclos).catch(() => setCiclos([]));
   }
 
   async function handleConfirmSubscription() {
@@ -155,6 +159,8 @@ export function Planos() {
       toast.error(mensagemDeErro(error, "Erro ao realizar assinatura."));
     }
   }
+
+  const cicloSelecionado = ciclos.find(c => c.recorrencia === subCiclo);
 
   useEffect(() => {
     loadPlanos();
@@ -314,8 +320,18 @@ export function Planos() {
                   {selectedPlano?.nome}
                 </h4>
                 <h2 className="text-success my-2">
-                  R$ {selectedPlano?.valor.toFixed(2).replace('.', ',')}
+                  {(cicloSelecionado?.valor ?? selectedPlano?.valor ?? 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                 </h2>
+                <p className="text-muted small mb-2">
+                  {cicloSelecionado && cicloSelecionado.meses > 1
+                    ? `por ${cicloSelecionado.meses} meses · equivale a ${cicloSelecionado.valorMensalEquivalente.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}/mês`
+                    : 'por mês'}
+                </p>
+                {cicloSelecionado && cicloSelecionado.percentualDesconto > 0 && (
+                  <Badge bg="success" className="mb-2">
+                    {cicloSelecionado.meses - cicloSelecionado.mesesCobrados} {cicloSelecionado.meses - cicloSelecionado.mesesCobrados === 1 ? 'mês grátis' : 'meses grátis'}
+                  </Badge>
+                )}
                 <Badge bg="success">Plano Ativo</Badge>
                 <p className="mt-3 text-muted small">{selectedPlano?.descricao}</p>
               </div>
@@ -338,8 +354,8 @@ export function Planos() {
                   <Form.Select value={subCiclo} onChange={e => setSubCiclo(e.target.value)}>
                     <option value="Mensal">Mensal</option>
                     <option value="Trimestral">Trimestral</option>
-                    <option value="Semestral">Semestral</option>
-                    <option value="Anual">Anual</option>
+                    <option value="Semestral">Semestral (1 mês grátis)</option>
+                    <option value="Anual">Anual (2 meses grátis)</option>
                   </Form.Select>
                 </Form.Group>
 

@@ -58,6 +58,8 @@ A URL da API pode ser alterada copiando `.env.example` para `.env.local`. O padr
 - **Dashboard** com assinaturas ativas, assinaturas a vencer nos próximos 30 dias e total de planos
 - **Planos** em cards: criar, editar e excluir (somente Admin, com confirmação de senha) e assinar um plano para um cliente
 - **Assinaturas**: listagem, edição de plano, ciclo e forma de pagamento, inativação e reativação
+- **Cobranças**: totais a receber, vencido e recebido; registro de pagamento e cancelamento (Admin); dias em atraso
+- **Preço por ciclo**: ao assinar, mostra o valor do ciclo, o equivalente mensal e os meses grátis (semestral e anual)
 - **Usuários**: listagem e edição de dados
 - **Perfil** do usuário logado
 - **Rotas protegidas**: páginas internas exigem login
