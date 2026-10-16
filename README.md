@@ -16,7 +16,7 @@
 > API (.NET 8 + PostgreSQL + RabbitMQ): [gerenciamento-de-assinaturas-backend](https://github.com/jessicaccl/gerenciamento-de-assinaturas-backend)
 
 <p align="center">
-  <img src="docs/screenshots/02-dashboard.png" alt="Dashboard do Assina+" width="900" />
+  <img src="docs/screenshots/02-dashboard.png" alt="Painel de provisões do Assina+" width="900" />
 </p>
 
 ## Telas
@@ -26,6 +26,8 @@
 | ![Login](docs/screenshots/01-login.png) | ![Planos](docs/screenshots/03-planos.png) |
 | **Assinaturas** | **Nova assinatura** |
 | ![Assinaturas](docs/screenshots/04-assinaturas.png) | ![Nova assinatura](docs/screenshots/06-nova-assinatura.png) |
+| **Cobranças** | **Painel de provisões** |
+| ![Cobranças](docs/screenshots/09-cobrancas.png) | ![Painel](docs/screenshots/02-dashboard.png) |
 | **Usuários** | **Alto contraste** |
 | ![Usuários](docs/screenshots/05-usuarios.png) | ![Alto contraste](docs/screenshots/07-alto-contraste.png) |
 
@@ -55,7 +57,7 @@ A URL da API pode ser alterada copiando `.env.example` para `.env.local`. O padr
 ## Funcionalidades
 
 - **Login e cadastro** com JWT, botão de conta demo e sessão encerrada automaticamente quando o token expira
-- **Dashboard** com assinaturas ativas, assinaturas a vencer nos próximos 30 dias e total de planos
+- **Painel de provisões** (tela inicial): MRR, valor a receber em 30 dias, valor vencido, provisão para inadimplência, gráfico de previsão de recebimentos (3, 6 ou 12 meses), aging do atraso e próximos vencimentos
 - **Planos** em cards: criar, editar e excluir (somente Admin, com confirmação de senha) e assinar um plano para um cliente
 - **Assinaturas**: listagem, edição de plano, ciclo e forma de pagamento, inativação e reativação
 - **Cobranças**: totais a receber, vencido e recebido; registro de pagamento e cancelamento (Admin); dias em atraso
