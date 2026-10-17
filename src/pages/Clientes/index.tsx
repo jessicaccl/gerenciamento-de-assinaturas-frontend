@@ -152,7 +152,7 @@ export function Clientes() {
                     <small>{c.documentoMascarado || 'sem documento'}{!c.email && ' · sem e-mail'}</small>
                   </span>
                   <span className="col-opcional">{c.mrr ? moeda(c.mrr) : '—'}</span>
-                  <span className="col-opcional" style={{ color: c.vencido ? '#c0392b' : undefined }}>{c.emAberto ? moeda(c.emAberto) : '—'}</span>
+                  <span className="col-opcional" style={{ color: c.vencido ? 'var(--texto-perigo)' : undefined }}>{c.emAberto ? moeda(c.emAberto) : '—'}</span>
                   <span><Etiqueta $valor={c.situacao}>{c.situacao}</Etiqueta></span>
                 </LinhaCliente>
               ))}
@@ -173,7 +173,7 @@ export function Clientes() {
 
                 <div className="metricas">
                   <div><span>MRR do cliente</span><strong>{ficha.mrr ? moeda(ficha.mrr) : '—'}</strong></div>
-                  <div><span>Em aberto</span><strong style={{ color: ficha.vencido ? '#c0392b' : undefined }}>{ficha.emAberto ? moeda(ficha.emAberto) : '—'}</strong></div>
+                  <div><span>Em aberto</span><strong style={{ color: ficha.vencido ? 'var(--texto-perigo)' : undefined }}>{ficha.emAberto ? moeda(ficha.emAberto) : '—'}</strong></div>
                   <div><span>Assinaturas ativas</span><strong>{ficha.assinaturasAtivas}</strong></div>
                 </div>
 

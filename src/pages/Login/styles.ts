@@ -63,7 +63,7 @@ export const BrandOverlay = styled.div`
 export const CarouselContent = styled.div`
   position: relative;
   z-index: 3;
-  color: var(--branco);
+  color: var(--texto-sobre-cor);
   max-width: 500px;
   animation: ${fadeIn} 1s ease-out;
 
@@ -96,7 +96,7 @@ export const Indicators = styled.div`
     transition: all 0.3s;
 
     &.active {
-      background-color: var(--branco);
+      background-color: var(--texto-sobre-cor);
       width: 30px;
       border-radius: 5px;
     }
@@ -188,7 +188,7 @@ export const FormCard = styled.div<FormCardProps>`
     transition: all 0.3s;
 
     &:hover {
-      background-color: var(--cor-primaria-escura);
+      background-color: var(--roxo-900);
       transform: translateY(-2px);
       box-shadow: 0 4px 15px rgba(46, 16, 101, 0.4);
     }

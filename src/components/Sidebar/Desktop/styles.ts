@@ -24,7 +24,7 @@ export const SidebarStyle = styled.aside<SidebarStyleProps>`
 
   overflow-y: auto;
   &::-webkit-scrollbar { width: 4px; }
-  &::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 2px; }
+  &::-webkit-scrollbar-thumb { background: var(--borda-campo); border-radius: 2px; }
 
   html body.high-contrast & {
     background-color: #000 !important; 
@@ -137,7 +137,7 @@ export const SidebarStyle = styled.aside<SidebarStyleProps>`
     }
 
     &:hover {
-      background-color: #f8f9fa;
+      background-color: var(--superficie-suave);
       color: var(--cor-primaria);
     }
 
@@ -154,7 +154,7 @@ export const SidebarStyle = styled.aside<SidebarStyleProps>`
     flex-direction: column;
     align-items: center;
     margin-bottom: 1.5rem;
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid var(--borda-suave);
     padding-top: 1rem;
     gap: 1rem;    
     padding-bottom: 10px;
@@ -193,7 +193,7 @@ export const SidebarStyle = styled.aside<SidebarStyleProps>`
     span { font-size: 0.75rem; font-weight: 500; }
 
     &:hover {
-      background-color: #fff5f5;
+      background-color: rgba(220, 53, 69, 0.1);
       color: #dc3545; 
     }
   }

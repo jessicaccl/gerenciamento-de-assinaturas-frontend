@@ -11,7 +11,7 @@ export const MainWrapper = styled.main`
 
 export const ButtonNew = styled.button`
   background-color: rgba(255, 255, 255, 0.2);
-  color: var(--branco);
+  color: var(--texto-sobre-cor);
   border: 1px solid rgba(255, 255, 255, 0.5);
   padding: 0.5rem 1.2rem;
   border-radius: 8px;

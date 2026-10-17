@@ -52,7 +52,7 @@ export function Perfil() {
                             <span>{user.cargo || 'Colaborador'}</span>
                         </AvatarSection>
 
-                        <hr style={{ width: '100%', borderTop: '1px solid #eee', margin: '0 0 2rem 0' }} />
+                        <hr style={{ width: '100%', borderTop: '1px solid var(--borda-suave)', margin: '0 0 2rem 0' }} />
 
                         <InfoGrid>
                             <InfoItem>

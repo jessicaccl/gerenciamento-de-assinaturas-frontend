@@ -167,7 +167,7 @@ export function Assinaturas() {
                     ) : (
                         <TableContainer>
                             <Table hover responsive className="m-0 align-middle">
-                                <thead className="bg-light text-secondary">
+                                <thead className="text-secondary">
                                     <tr>
                                         <th className="py-3 ps-4">Cliente / Plano</th>
                                         <th className="py-3">Ciclo & Pagamento</th>
@@ -188,7 +188,7 @@ export function Assinaturas() {
                                         filteredAssinaturas.map((item) => (
                                             <tr key={item.id}>
                                                 <td className="ps-4">
-                                                    <div className="fw-bold text-dark">{item.clienteNome}</div>
+                                                    <div className="fw-bold">{item.clienteNome}</div>
                                                     <small className="text-muted">Plano: {getPlanoNome(item.planoId)}</small>
                                                     {item.clienteEmail && <div><small className="text-muted">{item.clienteEmail}</small></div>}
                                                 </td>

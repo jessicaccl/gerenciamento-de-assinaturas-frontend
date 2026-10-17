@@ -77,9 +77,9 @@ export const CardPlano = styled.div`
 `;
 
 export const ButtonNew = styled.button`
-  background-color: #fff; 
+  background-color: var(--branco); 
   color: var(--cinza-primario); 
-  border: 1px solid #ced4da; 
+  border: 1px solid var(--borda-campo); 
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
   font-weight: 600;
@@ -94,7 +94,7 @@ export const ButtonNew = styled.button`
   }
 
   &:hover {
-    background-color: #f8f9fa; 
+    background-color: var(--superficie-suave); 
     border-color: var(--cinza-secundario);
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -113,11 +113,11 @@ export const ActionButton = styled.button<{ $variant: 'edit' | 'delete' }>`
   transition: all 0.2s ease;
   cursor: pointer;
 
-  color: ${(props) => (props.$variant === 'edit' ? '#ced4da' : '#fa5252')};
+  color: ${(props) => (props.$variant === 'edit' ? 'var(--cinza-primario)' : '#fa5252')};
 
   &:hover {
-    background-color: ${(props) => (props.$variant === 'edit' ? '#f8f9fa' : '#fff5f5')};
-    color: ${(props) => (props.$variant === 'edit' ? '#495057' : '#c92a2a')};
+    background-color: ${(props) => (props.$variant === 'edit' ? 'var(--superficie-suave)' : 'rgba(220, 53, 69, 0.1)')};
+    color: ${(props) => (props.$variant === 'edit' ? 'var(--cinza-secundario)' : '#e03131')};
   }
 
   svg {
@@ -139,7 +139,7 @@ export const ButtonSubscribe = styled.button`
 
   &:hover {
     background-color: var(--cor-primaria); 
-    color: var(--branco); 
+    color: var(--texto-sobre-cor); 
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(109, 40, 217, 0.3); 
   }

@@ -100,7 +100,7 @@ export const SeletorPeriodo = styled.div`
     &.ativo {
       border-color: var(--cor-primaria);
       color: var(--cor-primaria);
-      background: #f5f3ff;
+      background: var(--superficie-destaque);
     }
   }
 `;
@@ -118,7 +118,7 @@ export const FaixaAging = styled.div<{ $percentual: number; $cor: string }>`
 
   .barra {
     height: 8px;
-    background: var(--branco-primario);
+    background: var(--superficie-suave);
     border-radius: 4px;
     margin-top: 0.3rem;
 
@@ -141,7 +141,7 @@ export const ListaVencimentos = styled.ul`
     justify-content: space-between;
     align-items: center;
     padding: 0.6rem 0;
-    border-top: 1px solid var(--branco-primario);
+    border-top: 1px solid var(--borda-suave);
 
     &:first-child { border-top: none; }
 

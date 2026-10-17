@@ -172,7 +172,7 @@ export const SidebarMobileNavStyle = styled.div`
 
         &:hover {
           cursor: pointer;
-          background-color: #f8f9fa; 
+          background-color: var(--superficie-suave); 
           color: var(--cor-primaria);
           
           svg { color: var(--cor-primaria); }
@@ -194,7 +194,7 @@ export const SidebarMobileNavStyle = styled.div`
         svg { color: var(--vermelho-primario) !important; }
         
         &:hover {
-          background-color: #fff5f5;
+          background-color: rgba(220, 53, 69, 0.1);
         }
       }
     }
@@ -205,15 +205,15 @@ export const SidebarMobileNavStyle = styled.div`
     align-items: center;
     gap: 1rem;
     
-    background-color: #f8f9fa; 
-    border: 1px solid #eee;
+    background-color: var(--superficie-suave); 
+    border: 1px solid var(--borda-suave);
     color: var(--preto-primario); 
 
     cursor: pointer;
   transition: background 0.2s;
 
   &:hover {
-    background-color: #e9ecef; 
+    background-color: var(--borda-suave); 
   }
     
     padding: 1rem;
@@ -262,7 +262,7 @@ export const LogoArea = styled.div<LogoAreaProps>`
   span {
     font-size: 1.2rem;
     font-weight: bold;
-    color: var(--branco); 
+    color: var(--texto-sobre-cor); 
   }
   
   span {

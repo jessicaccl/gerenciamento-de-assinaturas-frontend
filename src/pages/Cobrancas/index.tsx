@@ -159,7 +159,7 @@ export function Cobrancas() {
                                     <strong>{moeda(resumo.aReceber)}</strong>
                                     <small>{resumo.qtdAReceber} cobrança(s) em aberto</small>
                                 </ResumoCard>
-                                <ResumoCard $cor="#c0392b">
+                                <ResumoCard $cor="var(--texto-perigo)">
                                     <span>Vencido</span>
                                     <strong>{moeda(resumo.vencido)}</strong>
                                     <small>{resumo.qtdVencido} cobrança(s) em atraso</small>
@@ -197,7 +197,7 @@ export function Cobrancas() {
                                                 return (
                                                     <tr key={c.id}>
                                                         <td className="ps-3">
-                                                            <div className="fw-bold text-dark">{c.clienteNome}</div>
+                                                            <div className="fw-bold">{c.clienteNome}</div>
                                                             <small className="text-muted">{c.planoNome} · {c.tipoRecorrencia}</small>
                                                             {emAberto && !c.clienteEmail && (
                                                                 <div><small className="text-muted fst-italic">sem e-mail cadastrado</small></div>

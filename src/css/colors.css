@@ -1,18 +1,27 @@
 :root {
   /* Paleta Assina+ */
-  --branco: #FFF;
-  --branco-primario: #F6F5FB;
-  --branco-secundario: #DDD9E8;
+  --branco: #FFF;                 /* superfície de cards, modais e menus */
+  --branco-primario: #F6F5FB;     /* fundo da página */
+  --branco-secundario: #DDD9E8;   /* bordas */
 
   --cor-primaria: #6D28D9;        /* roxo */
-  --cor-primaria-escura: #4C1D95;
+  --cor-primaria-escura: #4C1D95; /* títulos e textos em roxo */
   --cor-primaria-profunda: #2E1065;
+  --roxo-900: #4C1D95;            /* fundos em roxo escuro: não muda com o tema */
   --cor-destaque: #059669;        /* verde (texto/ícones, contraste AA) */
   --cor-destaque-clara: #10B981;  /* verde (fundos e detalhes) */
 
   --cinza-primario: #585868;
   --cinza-secundario: #3D3D4A;
   --preto-primario: #0D0D12;
+
+  --texto-sobre-cor: #FFF;        /* texto em cima do gradiente e de botões coloridos */
+  --superficie-suave: #F8F7FC;    /* hover e áreas de destaque leve */
+  --superficie-destaque: #F5F3FF; /* item selecionado */
+  --borda-suave: #EFEDF5;         /* divisórias internas */
+  --borda-campo: #CED4DA;         /* bordas de campos e botões neutros */
+  --texto-perigo: #C0392B;
+  --texto-alerta: #B45309;
 
   /* Cores Alertas */
   --vermelho-perigo: #fa5a54;
@@ -22,8 +31,56 @@
   --azul-informativo: #5bc0de;
   --verde-sucesso: var(--cor-destaque);
 
-  --gradiente-marca: linear-gradient(135deg, var(--cor-primaria-escura) 0%, var(--cor-primaria) 55%, var(--cor-destaque-clara) 100%);
+  --gradiente-marca: linear-gradient(135deg, var(--roxo-900) 0%, #6D28D9 55%, #10B981 100%);
 
   --cor-fonte: var(--cinza-secundario);
   --cor-fundo: var(--branco-primario);
+}
+
+/* Modo escuro: mesma identidade (roxo e verde), com superfícies escuras e cores mais claras para manter o contraste.
+   O seletor é mais específico que :root, então vence as definições acima e as do Global.css. */
+html[data-tema="escuro"] {
+  --branco: #1C1930;
+  --branco-primario: #110F1D;
+  --branco-secundario: #2F2A4A;
+
+  --cor-primaria: #8B5CF6;
+  --cor-primaria-escura: #C4B5FD;
+  --cor-destaque: #34D399;
+  --cor-destaque-clara: #10B981;
+
+  --cinza-primario: #A8A4BF;
+  --cinza-secundario: #DCD9EC;
+  --preto-primario: #F1F0F8;
+
+  --superficie-suave: #241F3D;
+  --superficie-destaque: rgba(139, 92, 246, 0.18);
+  --borda-suave: #2A2542;
+  --borda-campo: #3A3456;
+  --texto-perigo: #F87171;
+  --texto-alerta: #FBBF24;
+
+  --cor-fonte: var(--cinza-secundario);
+  --cor-fundo: var(--branco-primario);
+
+  /* Bootstrap (modais, campos, tabelas) usa estas variáveis no tema escuro */
+  --bs-body-bg: var(--branco);
+  --bs-body-color: var(--cinza-secundario);
+  --bs-border-color: var(--branco-secundario);
+  --bs-secondary-color: var(--cinza-primario);
+  --bs-tertiary-bg: var(--superficie-suave);
+  --bs-tertiary-bg-rgb: 36, 31, 61;
+  --bs-body-bg-rgb: 28, 25, 48;
+
+  color-scheme: dark;
+}
+
+/* Botões neutros do Bootstrap: no tema escuro padrão eles ficam com pouco contraste */
+html[data-tema="escuro"] .btn-outline-secondary {
+  --bs-btn-color: var(--cinza-secundario);
+  --bs-btn-border-color: var(--borda-campo);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--borda-campo);
+  --bs-btn-hover-border-color: var(--cinza-primario);
+  --bs-btn-active-bg: var(--borda-campo);
 }

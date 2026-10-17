@@ -46,7 +46,7 @@ export const ContainerBarra = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  background: #fff;
+  background: var(--branco);
   padding: 10px;
   border-radius: 8px 0 0 8px;
   box-shadow: -2px 2px 10px rgba(0,0,0,0.2);
@@ -74,7 +74,7 @@ export const BotaoAcessibilidade = styled.button`
   transition: 0.2s;
 
   &:hover {
-    background: var(--cor-primaria-escura);
+    background: var(--roxo-900);
   }
   
   body.high-contrast & {

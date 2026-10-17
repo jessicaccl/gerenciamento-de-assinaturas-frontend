@@ -24,6 +24,8 @@ import {
 
 import logoImg from '../../assets/images/logo.svg';
 import logoWhiteImg from '../../assets/images/logo-branco.svg';
+import logoEscuroImg from '../../assets/images/logo-escuro.svg';
+import { useAcessibilidade } from '../../components/Acessibilidade/Context';
 import AuthService from '../../services/AuthService';
 import { mensagemDeErro } from '../../services/api';
 
@@ -59,6 +61,7 @@ const slides = [
 
 export function Login() {
     const navigate = useNavigate();
+    const { modoEscuro } = useAcessibilidade();
     const [currentSlide, setCurrentSlide] = useState(0);
 
     const [email, setEmail] = useState('');
@@ -152,7 +155,7 @@ export function Login() {
             <FormSection>
                 <FormCard $whiteLogoUrl={logoWhiteImg}>
                     <div className="logo-area">
-                        <img src={logoImg} alt="Assina+" />
+                        <img src={modoEscuro ? logoEscuroImg : logoImg} alt="Assina+" />
                         <h3>Gestão de planos e assinaturas</h3>
                     </div>
 
@@ -160,7 +163,7 @@ export function Login() {
                         <Form.Group className="mb-4">
                             <Form.Label>E-mail</Form.Label>
                             <InputGroup>
-                                <InputGroup.Text style={{ background: 'white' }}><AiOutlineIdcard size={20} /></InputGroup.Text>
+                                <InputGroup.Text><AiOutlineIdcard size={20} /></InputGroup.Text>
                                 <Form.Control type="email" placeholder="seu@email.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
                             </InputGroup>
                         </Form.Group>
@@ -168,9 +171,9 @@ export function Login() {
                         <Form.Group className="mb-5">
                             <Form.Label>Senha</Form.Label>
                             <InputGroup>
-                                <InputGroup.Text style={{ background: 'white' }}><HiOutlineLockClosed size={20} /></InputGroup.Text>
+                                <InputGroup.Text><HiOutlineLockClosed size={20} /></InputGroup.Text>
                                 <Form.Control type={showPassword ? "text" : "password"} placeholder="••••••••" value={senha} onChange={(e) => setSenha(e.target.value)} required />
-                                <InputGroup.Text style={{ background: 'white', cursor: 'pointer' }} onClick={() => setShowPassword(!showPassword)}>
+                                <InputGroup.Text style={{ cursor: 'pointer' }} onClick={() => setShowPassword(!showPassword)}>
                                     {showPassword ? <BsEyeSlash size={20} /> : <BsEye size={20} />}
                                 </InputGroup.Text>
                             </InputGroup>

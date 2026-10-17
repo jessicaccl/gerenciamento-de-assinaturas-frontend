@@ -72,7 +72,7 @@ function SidebarMobile({ logOut, user }: SidebarMobileProps) {
       </div>
 
       <Offcanvas show={show} onHide={handleClose} placement="start" style={{ maxWidth: '85%' }}>
-        <Offcanvas.Header style={{ borderBottom: '1px solid #f0f0f0' }}>
+        <Offcanvas.Header style={{ borderBottom: '1px solid var(--borda-suave)' }}>
           <Offcanvas.Title>
             <LogoArea $whiteLogoUrl={logoWhiteImg}>
               <img src={logoImg} alt="" />

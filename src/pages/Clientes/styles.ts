@@ -17,7 +17,7 @@ export const BarraFiltros = styled.div`
 
 export const ChipSituacao = styled.button<{ $ativo: boolean }>`
   border: 1px solid ${(p) => (p.$ativo ? "var(--cor-primaria)" : "var(--branco-secundario)")};
-  background: ${(p) => (p.$ativo ? "#f5f3ff" : "var(--branco)")};
+  background: ${(p) => (p.$ativo ? "var(--superficie-destaque)" : "var(--branco)")};
   color: ${(p) => (p.$ativo ? "var(--cor-primaria)" : "var(--cinza-primario)")};
   border-radius: 8px;
   padding: 0.35rem 0.8rem;
@@ -51,14 +51,14 @@ export const LinhaCliente = styled.button<{ $selecionado: boolean }>`
   align-items: center;
   width: 100%;
   text-align: left;
-  background: ${(p) => (p.$selecionado ? "#f5f3ff" : "transparent")};
+  background: ${(p) => (p.$selecionado ? "var(--superficie-destaque)" : "transparent")};
   border: none;
-  border-top: 1px solid var(--branco-primario);
+  border-top: 1px solid var(--borda-suave);
   padding: 0.65rem 0.5rem;
   font-size: 0.9rem;
   color: var(--cinza-secundario);
 
-  &:hover { background: #faf9ff; }
+  &:hover { background: var(--superficie-suave); }
 
   &.cabecalho {
     border-top: none;
@@ -85,7 +85,7 @@ const coresSituacao: Record<string, { fundo: string; texto: string }> = {
   Inadimplente: { fundo: "#f8d7da", texto: "#842029" },
   Ativo: { fundo: "#d1fae5", texto: "#065f46" },
   Inativo: { fundo: "#e9ecef", texto: "#495057" },
-  Pendente: { fundo: "#ede9fe", texto: "var(--cor-primaria-escura)" },
+  Pendente: { fundo: "#ede9fe", texto: "var(--roxo-900)" },
   Vencida: { fundo: "#f8d7da", texto: "#842029" },
   Paga: { fundo: "#d1fae5", texto: "#065f46" },
 };
@@ -117,7 +117,7 @@ export const Ficha = styled(Cartao)`
     width: 46px;
     height: 46px;
     border-radius: 50%;
-    background: #ede9fe;
+    background: var(--superficie-destaque);
     color: var(--cor-primaria-escura);
     display: flex;
     align-items: center;
@@ -133,7 +133,7 @@ export const Ficha = styled(Cartao)`
     gap: 0.5rem;
     margin: 1rem 0;
 
-    div { background: var(--branco-primario); border-radius: 8px; padding: 0.6rem 0.75rem; }
+    div { background: var(--superficie-suave); border-radius: 8px; padding: 0.6rem 0.75rem; }
     span { display: block; font-size: 0.75rem; color: var(--cinza-primario); }
     strong { font-size: 1.05rem; }
   }
@@ -161,7 +161,7 @@ export const Ficha = styled(Cartao)`
     gap: 0.5rem;
     align-items: center;
     padding: 0.45rem 0;
-    border-top: 1px solid var(--branco-primario);
+    border-top: 1px solid var(--borda-suave);
     font-size: 0.88rem;
 
     small { color: var(--cinza-primario); }

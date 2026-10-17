@@ -28,8 +28,10 @@
 | ![Clientes](docs/screenshots/10-clientes.png) | ![Nova assinatura](docs/screenshots/06-nova-assinatura.png) |
 | **Assinaturas** | **Cobranças** |
 | ![Assinaturas](docs/screenshots/04-assinaturas.png) | ![Cobranças](docs/screenshots/09-cobrancas.png) |
-| **Usuários** | **Alto contraste** |
-| ![Usuários](docs/screenshots/05-usuarios.png) | ![Alto contraste](docs/screenshots/07-alto-contraste.png) |
+| **Usuários** | **Modo escuro** |
+| ![Usuários](docs/screenshots/05-usuarios.png) | ![Modo escuro](docs/screenshots/11-modo-escuro.png) |
+| **Alto contraste** | |
+| ![Alto contraste](docs/screenshots/07-alto-contraste.png) | |
 
 <p align="center">
   <img src="docs/screenshots/08-mobile.png" alt="Versão mobile" width="260" />
@@ -70,8 +72,9 @@ A URL da API pode ser alterada copiando `.env.example` para `.env.local`. O padr
 - **Rotas protegidas**: páginas internas exigem login
 - **Responsivo**: sidebar flutuante no desktop e menu lateral (offcanvas) no mobile
 
-### Acessibilidade
+### Aparência e acessibilidade
 
+- **Modo escuro** com a mesma identidade roxa e verde. Na primeira visita segue o tema do sistema operacional; depois, a escolha fica salva
 - Ajuste de tamanho da fonte (A+ / A-)
 - Modo de alto contraste, que preserva as cores das ilustrações
 - Integração com o **VLibras** (tradução para Libras do Governo Federal)
@@ -103,7 +106,7 @@ src/
 - **Camada de serviços**: os componentes não chamam o Axios diretamente. Cada recurso tem o seu service (`PlanoService`, `AssinaturaService`...).
 - **Mensagens de erro padronizadas**: `mensagemDeErro()` converte respostas da API (texto, validação ou ProblemDetails) em mensagens legíveis.
 - **Interface por perfil**: ações administrativas só aparecem para Admin. Mesmo assim, quem bloqueia de fato é a API.
-- **Tokens de design**: cores definidas como variáveis CSS (`--cor-primaria`, `--cor-destaque`, `--gradiente-marca`), o que facilita trocar o tema.
+- **Tokens de design**: cores definidas como variáveis CSS (`--cor-primaria`, `--superficie-suave`, `--texto-perigo`...). O modo escuro só redefine esses tokens em `html[data-tema="escuro"]` e liga o tema escuro nativo do Bootstrap 5.3 (`data-bs-theme`), sem duplicar estilos de componente.
 
 ## Deploy (Vercel)
 

@@ -10,7 +10,7 @@ export const PageHeaderContainerStyle = styled.header`
   align-items: center;
   justify-content: space-between; 
   padding: 0 2rem;
-  color: var(--branco);
+  color: var(--texto-sobre-cor);
 
   .header-title {
     display: flex;

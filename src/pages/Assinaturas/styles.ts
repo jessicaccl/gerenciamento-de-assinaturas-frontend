@@ -33,7 +33,7 @@ export const TableContainer = styled.div`
       vertical-align: middle;
       color: var(--cinza-primario);
       padding: 1rem 0.5rem;
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom: 1px solid var(--borda-suave);
     }
     
     tbody tr:last-child td {
@@ -63,7 +63,7 @@ export const ActionButton = styled.button<{ $variant: 'edit' | 'delete' | 'react
       if (props.$variant === 'edit') return '#fff3cd';
       if (props.$variant === 'delete') return '#f8d7da';
       if (props.$variant === 'reactivate') return '#d4edda';
-      return '#f0f0f0';
+      return 'var(--superficie-suave)';
     }};
   }
 `;
@@ -78,8 +78,8 @@ export const FilterContainer = styled.div`
     min-width: 180px;
     padding: 0.5rem;
     border-radius: 8px;
-    border: 1px solid #ced4da;
-    background-color: #fff;
+    border: 1px solid var(--borda-campo);
+    background-color: var(--branco);
     font-size: 0.9rem;
     font-weight: 500;
     color: var(--cinza-primario);

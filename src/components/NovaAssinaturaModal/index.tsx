@@ -87,7 +87,7 @@ export function NovaAssinaturaModal({ show, onHide, onCriada, planoInicial, clie
           <Row>
             <Col md={5} className="mb-3 border-end d-flex flex-column justify-content-center text-center">
               {plano ? (
-                <div className="p-3 bg-light rounded">
+                <div className="p-3 bg-body-tertiary rounded">
                   <h4 className="fw-bold mb-1" style={{ color: 'var(--cor-primaria-escura)' }}>{plano.nome}</h4>
                   <h2 className="text-success my-2">{moeda(cicloSelecionado?.valor ?? plano.valor)}</h2>
                   <p className="text-muted small mb-2">

@@ -15,7 +15,7 @@ export const BotaoExportar = styled.button`
   color: var(--cor-primaria-escura);
   white-space: nowrap;
 
-  &:hover { background: #f5f3ff; }
+  &:hover { background: var(--superficie-destaque); }
 `;
 
 export const ResumoGrid = styled.div`
@@ -50,7 +50,7 @@ export const ResumoCard = styled.div<{ $cor: string }>`
 `;
 
 const coresStatus: Record<string, { fundo: string; texto: string }> = {
-  Pendente: { fundo: "#ede9fe", texto: "var(--cor-primaria-escura)" },
+  Pendente: { fundo: "#ede9fe", texto: "var(--roxo-900)" },
   Vencida: { fundo: "#f8d7da", texto: "#842029" },
   Paga: { fundo: "#d1fae5", texto: "#065f46" },
   Cancelada: { fundo: "#e9ecef", texto: "#495057" },

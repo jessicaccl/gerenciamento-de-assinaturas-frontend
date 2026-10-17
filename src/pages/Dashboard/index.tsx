@@ -93,13 +93,13 @@ export function Dashboard() {
                 <span className="detalhe">{painel.quantidadeAReceber30Dias} cobranças, incluindo próximos ciclos</span>
               </CardMetrica>
 
-              <CardMetrica $cor="#c0392b">
+              <CardMetrica $cor="var(--texto-perigo)">
                 <span className="rotulo"><FaExclamationTriangle /> Vencido</span>
                 <div className="valor">{moeda(painel.vencido)}</div>
                 <span className="detalhe">{painel.quantidadeVencida} cobranças em atraso</span>
               </CardMetrica>
 
-              <CardMetrica $cor="#b45309">
+              <CardMetrica $cor="var(--texto-alerta)">
                 <span className="rotulo"><FaShieldAlt /> Provisão para inadimplência</span>
                 <div className="valor">{moeda(painel.provisaoInadimplencia)}</div>
                 <span className="detalhe">{painel.percentualProvisionado.toLocaleString('pt-BR')}% do valor vencido</span>
@@ -128,7 +128,7 @@ export function Dashboard() {
                 <div style={{ width: '100%', height: 280 }}>
                   <ResponsiveContainer>
                     <BarChart data={dadosGrafico} margin={{ top: 4, right: 8, left: 8, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" />
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--borda-suave)" />
                       <XAxis dataKey="nome" tick={{ fontSize: 12 }} tickLine={false} axisLine={false} />
                       <YAxis tickFormatter={moedaCurta} tick={{ fontSize: 11 }} tickLine={false} axisLine={false} width={70} />
                       <Tooltip formatter={(valor) => moeda(Number(valor))} cursor={{ fill: 'rgba(109, 40, 217, 0.06)' }} />

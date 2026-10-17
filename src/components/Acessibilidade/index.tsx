@@ -1,45 +1,39 @@
-import { useAcessibilidade } from './Context'; 
+import { FaMoon, FaSun, FaAdjust } from 'react-icons/fa';
+import { useAcessibilidade } from './Context';
 import { ContainerBarra, BotaoAcessibilidade, GlobalHighContrast } from './styles';
 
 export const Acessibilidade = () => {
-  const { aumentarFonte, diminuirFonte, toggleContraste } = useAcessibilidade();
+  const { aumentarFonte, diminuirFonte, toggleContraste, toggleModoEscuro, modoEscuro, altoContraste } = useAcessibilidade();
 
   return (
     <>
       <GlobalHighContrast />
 
-      <ContainerBarra>
-        <BotaoAcessibilidade onClick={aumentarFonte} title="Aumentar Fonte">
+      <ContainerBarra role="toolbar" aria-label="Acessibilidade e aparência">
+        <BotaoAcessibilidade onClick={aumentarFonte} title="Aumentar fonte" aria-label="Aumentar fonte">
           A+
         </BotaoAcessibilidade>
-        
-        <BotaoAcessibilidade onClick={diminuirFonte} title="Diminuir Fonte">
+
+        <BotaoAcessibilidade onClick={diminuirFonte} title="Diminuir fonte" aria-label="Diminuir fonte">
           A-
         </BotaoAcessibilidade>
-        
-        <BotaoAcessibilidade onClick={toggleContraste} title="Alto Contraste">
-          
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="24" 
-            height="24" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-          >
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-          </svg>
+
+        <BotaoAcessibilidade
+          onClick={toggleModoEscuro}
+          title={modoEscuro ? 'Modo claro' : 'Modo escuro'}
+          aria-label={modoEscuro ? 'Ativar modo claro' : 'Ativar modo escuro'}
+          aria-pressed={modoEscuro}
+        >
+          {modoEscuro ? <FaSun size={18} /> : <FaMoon size={18} />}
+        </BotaoAcessibilidade>
+
+        <BotaoAcessibilidade
+          onClick={toggleContraste}
+          title="Alto contraste"
+          aria-label="Alto contraste"
+          aria-pressed={altoContraste}
+        >
+          <FaAdjust size={18} />
         </BotaoAcessibilidade>
       </ContainerBarra>
     </>
