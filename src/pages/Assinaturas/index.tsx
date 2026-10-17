@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Spinner, Table, Badge, Button, Modal, Form, Row, Col } from 'react-bootstrap';
-import { FaFileInvoiceDollar, FaEdit, FaFilter } from 'react-icons/fa';
+import { FaFileInvoiceDollar, FaEdit, FaFilter, FaPlus } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 import { Sidebar } from '../../components/Sidebar';
@@ -12,6 +12,7 @@ import AssinaturaService from '../../services/AssinaturaService';
 import { mensagemDeErro } from '../../services/api';
 import PlanoService from '../../services/PlanoService';
 
+import { NovaAssinaturaModal } from '../../components/NovaAssinaturaModal';
 import { MainWrapper, TableContainer, ActionButton, FilterContainer } from './styles';
 
 interface Assinatura {
@@ -45,23 +46,24 @@ export function Assinaturas() {
     const [editCiclo, setEditCiclo] = useState('');
     const [editPagamento, setEditPagamento] = useState('');
     const [editStatus, setEditStatus] = useState(''); 
-    const [editEmail, setEditEmail] = useState('');
+    const [novaAberta, setNovaAberta] = useState(false);
+
+    async function loadData() {
+        try {
+            const [assData, planosData] = await Promise.all([
+                AssinaturaService.getAll(),
+                PlanoService.getAll()
+            ]);
+            setAssinaturas(assData);
+            setPlanos(planosData);
+        } catch {
+            toast.error("Erro ao carregar dados.");
+        } finally {
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
-        async function loadData() {
-            try {
-                const [assData, planosData] = await Promise.all([
-                    AssinaturaService.getAll(),
-                    PlanoService.getAll()
-                ]);
-                setAssinaturas(assData);
-                setPlanos(planosData);
-            } catch {
-                toast.error("Erro ao carregar dados.");
-            } finally {
-                setLoading(false);
-            }
-        }
         loadData();
     }, []);
 
@@ -71,7 +73,6 @@ export function Assinaturas() {
         setEditCiclo(assinatura.tipoRecorrencia);
         setEditPagamento(assinatura.formaPagamento);
         setEditStatus(assinatura.status);
-        setEditEmail(assinatura.clienteEmail ?? '');
         setShowEditModal(true);
     }
 
@@ -89,7 +90,6 @@ export function Assinaturas() {
 
             await AssinaturaService.update(selectedAssinatura.id, {
                 planoId: editPlanoId,
-                clienteEmail: editEmail,
                 tipoRecorrencia: editCiclo,
                 formaPagamento: editPagamento
             });
@@ -99,7 +99,7 @@ export function Assinaturas() {
 
             setAssinaturas(oldList => oldList.map(item =>
                 item.id === selectedAssinatura.id
-                    ? { ...item, planoId: editPlanoId, clienteEmail: editEmail || null, tipoRecorrencia: editCiclo, formaPagamento: editPagamento, status: editStatus }
+                    ? { ...item, planoId: editPlanoId, tipoRecorrencia: editCiclo, formaPagamento: editPagamento, status: editStatus }
                     : item
             ));
 
@@ -151,6 +151,11 @@ export function Assinaturas() {
                                         <option key={plano.id} value={plano.id}>{plano.nome}</option>
                                     ))}
                                 </Form.Select>
+                            </Col>
+                            <Col md="auto">
+                                <Button variant="light" className="fw-bold text-nowrap" onClick={() => setNovaAberta(true)}>
+                                    <FaPlus className="me-1" /> Nova assinatura
+                                </Button>
                             </Col>
                         </Row>
                     </FilterContainer>
@@ -229,10 +234,9 @@ export function Assinaturas() {
                             </Col>
                         </Row>
                         <hr />
-                        <Form.Group className="mb-3">
-                            <Form.Label>E-mail do cliente <small className="text-muted">(para lembretes de cobrança)</small></Form.Label>
-                            <Form.Control type="email" placeholder="cliente@empresa.com" value={editEmail} onChange={e => setEditEmail(e.target.value)} />
-                        </Form.Group>
+                        <p className="text-muted small">
+                            Cliente: <strong>{selectedAssinatura?.clienteNome}</strong>. Os dados de contato ficam na aba Clientes.
+                        </p>
                         <Form.Group className="mb-3">
                             <Form.Label>Plano</Form.Label>
                             <Form.Select value={editPlanoId} onChange={e => setEditPlanoId(Number(e.target.value))}>
@@ -269,6 +273,7 @@ export function Assinaturas() {
                     <Button style={{ backgroundColor: 'var(--cor-primaria)', border: 'none' }} onClick={handleSaveEdit}>Salvar Alterações</Button>
                 </Modal.Footer>
             </Modal>
+            <NovaAssinaturaModal show={novaAberta} onHide={() => setNovaAberta(false)} onCriada={loadData} />
         </PageContainer>
     );
 }

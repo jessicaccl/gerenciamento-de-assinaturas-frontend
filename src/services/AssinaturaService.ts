@@ -3,6 +3,7 @@ import api from './api';
 export interface AssinaturaDto {
   id?: number;
   planoId: number;
+  clienteId?: number;
   clienteNome?: string;
   clienteEmail?: string | null;
   tipoRecorrencia: string;

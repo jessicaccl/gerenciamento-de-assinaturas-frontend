@@ -12,6 +12,7 @@ import {
   FaUserFriends,
   FaFileInvoiceDollar,
   FaReceipt,
+  FaAddressBook,
   FaSignOutAlt,
   FaTimes
 } from "react-icons/fa";
@@ -104,6 +105,16 @@ function SidebarMobile({ logOut, user }: SidebarMobileProps) {
                 >
                   <FaBoxOpen />
                   <span>Planos</span>
+                </div>
+              </div>
+
+              <div className="sidebar-nav-item">
+                <div
+                  onClick={() => navigateTo("/clientes")}
+                  className={`area-icons-label ${isActive('/clientes') ? 'active' : ''}`}
+                >
+                  <FaAddressBook />
+                  <span>Clientes</span>
                 </div>
               </div>
 

@@ -13,7 +13,7 @@ export function App() {
 
       <AppRoutes />
       
-      <ToastContainer autoClose={3000} theme="colored" />
+      <ToastContainer position="bottom-right" autoClose={3000} theme="colored" />
     </AcessibilidadeProvider>
   );
 }

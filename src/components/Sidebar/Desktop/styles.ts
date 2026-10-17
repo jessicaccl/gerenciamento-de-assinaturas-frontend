@@ -101,7 +101,7 @@ export const SidebarStyle = styled.aside<SidebarStyleProps>`
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 0.4rem; 
+    gap: 0.25rem; 
     flex: 1; 
   }
 
@@ -118,7 +118,7 @@ export const SidebarStyle = styled.aside<SidebarStyleProps>`
     justify-content: center;
     
     width: 100%;
-    padding: 10px 0; 
+    padding: 8px 0; 
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.2s ease;

@@ -1,20 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Button, Spinner, Modal, Form, Row, Col, Badge } from 'react-bootstrap';
-import { FaPlus, FaTrash, FaExclamationTriangle, FaCheck, FaEdit } from 'react-icons/fa';
+import { Button, Spinner, Modal, Form } from 'react-bootstrap';
+import { FaPlus, FaTrash, FaExclamationTriangle, FaEdit } from 'react-icons/fa';
 import { AiOutlineTable } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 
 import { Sidebar } from '../../components/Sidebar';
+import { NovaAssinaturaModal } from '../../components/NovaAssinaturaModal';
 import PageContainer from '../../components/PageContainer';
 import PageHeaderContainer from '../../components/PageHeaderContainer';
 import PageContentContainer from '../../components/PageContentContainer';
 
 import PlanoService from '../../services/PlanoService';
-import AssinaturaService from '../../services/AssinaturaService';
 import AuthService from '../../services/AuthService';
 import { mensagemDeErro } from '../../services/api';
 import type { Plano } from '../../types/Plano';
-import type { CicloDePreco } from '../../types/Cobranca';
 
 import {
   MainWrapper, GridPlanos, CardPlano, ButtonNew, ActionButton, ButtonSubscribe
@@ -37,13 +36,7 @@ export function Planos() {
   const [planToDeleteId, setPlanToDeleteId] = useState<number | null>(null);
   const [deletePassword, setDeletePassword] = useState('');
 
-  const [showSubscribeModal, setShowSubscribeModal] = useState(false);
-  const [selectedPlano, setSelectedPlano] = useState<Plano | null>(null);
-  const [subCliente, setSubCliente] = useState('');
-  const [subEmail, setSubEmail] = useState('');
-  const [subCiclo, setSubCiclo] = useState('Mensal');
-  const [ciclos, setCiclos] = useState<CicloDePreco[]>([]);
-  const [subPagamento, setSubPagamento] = useState('Cartão de Crédito');
+  const [planoParaAssinar, setPlanoParaAssinar] = useState<Plano | null>(null);
 
   async function loadPlanos() {
     try {
@@ -128,42 +121,6 @@ export function Planos() {
     }
   }
 
-  function handleOpenSubscribe(plano: Plano) {
-    setSelectedPlano(plano);
-    setSubCliente('');
-    setSubEmail('');
-    setSubCiclo('Mensal');
-    setSubPagamento('Cartão de Crédito');
-    setCiclos([]);
-    setShowSubscribeModal(true);
-    PlanoService.getCiclos(plano.id).then(setCiclos).catch(() => setCiclos([]));
-  }
-
-  async function handleConfirmSubscription() {
-    if (!subCliente) {
-      toast.warning("Por favor, informe o nome do Cliente.");
-      return;
-    }
-    if (!selectedPlano?.id) return;
-
-    try {
-      await AssinaturaService.create({
-        planoId: selectedPlano.id,
-        clienteNome: subCliente,
-        clienteEmail: subEmail || null,
-        tipoRecorrencia: subCiclo,
-        formaPagamento: subPagamento
-      });
-
-      toast.success(`Assinatura do plano ${selectedPlano.nome} realizada!`);
-      setShowSubscribeModal(false);
-      setSubCliente('');
-    } catch (error) {
-      toast.error(mensagemDeErro(error, "Erro ao realizar assinatura."));
-    }
-  }
-
-  const cicloSelecionado = ciclos.find(c => c.recorrencia === subCiclo);
 
   useEffect(() => {
     loadPlanos();
@@ -225,7 +182,7 @@ export function Planos() {
 
                   <p>{plano.descricao}</p>
 
-                  <ButtonSubscribe onClick={() => handleOpenSubscribe(plano)}>
+                  <ButtonSubscribe onClick={() => setPlanoParaAssinar(plano)}>
                     Assinar Plano
                   </ButtonSubscribe>
                 </CardPlano>
@@ -308,101 +265,11 @@ export function Planos() {
         </Modal.Footer>
       </Modal>
 
-      <Modal show={showSubscribeModal} onHide={() => setShowSubscribeModal(false)} centered size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title style={{ color: 'var(--cor-primaria-escura)', fontWeight: 'bold' }}>
-            Nova Assinatura
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="p-4">
-          <Row>
-            <Col md={5} className="mb-3 border-end d-flex flex-column justify-content-center text-center">
-              <h5 className="text-muted mb-3">Você selecionou:</h5>
-              <div className="p-3 bg-light rounded shadow-sm">
-                <h4 className="fw-bold mb-1" style={{ color: 'var(--cor-primaria-escura)' }}>
-                  {selectedPlano?.nome}
-                </h4>
-                <h2 className="text-success my-2">
-                  {(cicloSelecionado?.valor ?? selectedPlano?.valor ?? 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                </h2>
-                <p className="text-muted small mb-2">
-                  {cicloSelecionado && cicloSelecionado.meses > 1
-                    ? `por ${cicloSelecionado.meses} meses · equivale a ${cicloSelecionado.valorMensalEquivalente.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}/mês`
-                    : 'por mês'}
-                </p>
-                {cicloSelecionado && cicloSelecionado.percentualDesconto > 0 && (
-                  <Badge bg="success" className="mb-2">
-                    {cicloSelecionado.meses - cicloSelecionado.mesesCobrados} {cicloSelecionado.meses - cicloSelecionado.mesesCobrados === 1 ? 'mês grátis' : 'meses grátis'}
-                  </Badge>
-                )}
-                <Badge bg="success">Plano Ativo</Badge>
-                <p className="mt-3 text-muted small">{selectedPlano?.descricao}</p>
-              </div>
-            </Col>
-
-            <Col md={7}>
-              <Form>
-                <Form.Group className="mb-3">
-                  <Form.Label className="fw-bold">Nome do Cliente</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Nome do cliente ou empresa..."
-                    value={subCliente}
-                    onChange={e => setSubCliente(e.target.value)}
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label className="fw-bold">E-mail do Cliente <small className="text-muted fw-normal">(opcional, para lembretes)</small></Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="cliente@empresa.com"
-                    value={subEmail}
-                    onChange={e => setSubEmail(e.target.value)}
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label className="fw-bold">Ciclo de Cobrança</Form.Label>
-                  <Form.Select value={subCiclo} onChange={e => setSubCiclo(e.target.value)}>
-                    <option value="Mensal">Mensal</option>
-                    <option value="Trimestral">Trimestral</option>
-                    <option value="Semestral">Semestral (1 mês grátis)</option>
-                    <option value="Anual">Anual (2 meses grátis)</option>
-                  </Form.Select>
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label className="fw-bold">Forma de Pagamento</Form.Label>
-                  <div className="d-flex gap-2 flex-wrap">
-                    {['Cartão de Crédito', 'Boleto', 'Pix'].map((tipo) => (
-                      <Button
-                        key={tipo}
-                        variant={subPagamento === tipo ? 'success' : 'outline-secondary'}
-                        size="sm"
-                        onClick={() => setSubPagamento(tipo)}
-                      >
-                        {tipo}
-                      </Button>
-                    ))}
-                  </div>
-                </Form.Group>
-              </Form>
-            </Col>
-          </Row>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowSubscribeModal(false)}>
-            Cancelar
-          </Button>
-          <Button
-            style={{ backgroundColor: 'var(--cor-primaria)', border: 'none' }}
-            onClick={handleConfirmSubscription}
-          >
-            <FaCheck className="me-2" /> Confirmar Assinatura
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <NovaAssinaturaModal
+        show={planoParaAssinar !== null}
+        planoInicial={planoParaAssinar}
+        onHide={() => setPlanoParaAssinar(null)}
+      />
 
     </PageContainer>
   );

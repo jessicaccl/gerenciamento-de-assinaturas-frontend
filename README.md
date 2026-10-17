@@ -24,10 +24,10 @@
 | Login | Planos |
 |---|---|
 | ![Login](docs/screenshots/01-login.png) | ![Planos](docs/screenshots/03-planos.png) |
-| **Assinaturas** | **Nova assinatura** |
-| ![Assinaturas](docs/screenshots/04-assinaturas.png) | ![Nova assinatura](docs/screenshots/06-nova-assinatura.png) |
-| **Cobranças** | **Painel de provisões** |
-| ![Cobranças](docs/screenshots/09-cobrancas.png) | ![Painel](docs/screenshots/02-dashboard.png) |
+| **Clientes** | **Nova assinatura** |
+| ![Clientes](docs/screenshots/10-clientes.png) | ![Nova assinatura](docs/screenshots/06-nova-assinatura.png) |
+| **Assinaturas** | **Cobranças** |
+| ![Assinaturas](docs/screenshots/04-assinaturas.png) | ![Cobranças](docs/screenshots/09-cobrancas.png) |
 | **Usuários** | **Alto contraste** |
 | ![Usuários](docs/screenshots/05-usuarios.png) | ![Alto contraste](docs/screenshots/07-alto-contraste.png) |
 
@@ -59,6 +59,8 @@ A URL da API pode ser alterada copiando `.env.example` para `.env.local`. O padr
 - **Login e cadastro** com JWT, botão de conta demo e sessão encerrada automaticamente quando o token expira
 - **Painel de provisões** (tela inicial): MRR, valor a receber em 30 dias, valor vencido, provisão para inadimplência, gráfico de previsão de recebimentos (3, 6 ou 12 meses), aging do atraso e próximos vencimentos
 - **Planos** em cards: criar, editar e excluir (somente Admin, com confirmação de senha) e assinar um plano para um cliente
+- **Clientes**: lista com MRR, valor em aberto e situação (em dia, a vencer ou inadimplente), busca por nome, e-mail ou CPF/CNPJ e ficha com contato, assinaturas e histórico de cobranças
+- **Nova assinatura** a partir do plano, do cliente ou da tela de assinaturas, com cadastro rápido de cliente sem sair do fluxo
 - **Assinaturas**: listagem, edição de plano, ciclo e forma de pagamento, inativação e reativação
 - **Cobranças**: totais a receber, vencido e recebido; registro de pagamento e cancelamento (Admin); dias em atraso; lembrete por e-mail; exportação em CSV
 - **Notificar vencidas**: no painel, envia lembrete por e-mail para todos os clientes em atraso
