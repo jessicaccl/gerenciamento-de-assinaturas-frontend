@@ -2,6 +2,22 @@ import styled from "styled-components";
 
 export { MainWrapper, TableContainer, FilterContainer } from "../Assinaturas/styles";
 
+export const BotaoExportar = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--branco);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 0.9rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--cor-primaria-escura);
+  white-space: nowrap;
+
+  &:hover { background: #f5f3ff; }
+`;
+
 export const ResumoGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -50,10 +66,12 @@ export const StatusBadge = styled.span<{ $status: string }>`
   color: ${(props) => coresStatus[props.$status]?.texto ?? "#495057"};
 `;
 
-export const BotaoAcao = styled.button<{ $variante: "pagar" | "cancelar" }>`
+const coresAcao = { pagar: "var(--cor-destaque)", cancelar: "#d9534f", lembrete: "var(--cor-primaria)" };
+
+export const BotaoAcao = styled.button<{ $variante: "pagar" | "cancelar" | "lembrete" }>`
   background: transparent;
-  border: 1px solid ${(props) => (props.$variante === "pagar" ? "var(--cor-destaque)" : "#d9534f")};
-  color: ${(props) => (props.$variante === "pagar" ? "var(--cor-destaque)" : "#d9534f")};
+  border: 1px solid ${(props) => coresAcao[props.$variante]};
+  color: ${(props) => coresAcao[props.$variante]};
   border-radius: 8px;
   padding: 0.3rem 0.7rem;
   font-size: 0.85rem;
@@ -62,7 +80,7 @@ export const BotaoAcao = styled.button<{ $variante: "pagar" | "cancelar" }>`
   transition: 0.2s;
 
   &:hover {
-    background-color: ${(props) => (props.$variante === "pagar" ? "var(--cor-destaque)" : "#d9534f")};
+    background-color: ${(props) => coresAcao[props.$variante]};
     color: #fff;
   }
 `;

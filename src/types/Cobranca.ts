@@ -4,6 +4,7 @@ export interface Cobranca {
   id: number;
   assinaturaId: number;
   clienteNome: string;
+  clienteEmail?: string | null;
   planoNome: string;
   tipoRecorrencia: string;
   periodoInicio: string;
@@ -14,6 +15,7 @@ export interface Cobranca {
   dataPagamento?: string | null;
   formaPagamento?: string | null;
   diasEmAtraso: number;
+  ultimoLembrete?: string | null;
 }
 
 export interface CicloDePreco {

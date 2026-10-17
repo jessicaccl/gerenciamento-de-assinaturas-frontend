@@ -60,7 +60,8 @@ A URL da API pode ser alterada copiando `.env.example` para `.env.local`. O padr
 - **Painel de provisões** (tela inicial): MRR, valor a receber em 30 dias, valor vencido, provisão para inadimplência, gráfico de previsão de recebimentos (3, 6 ou 12 meses), aging do atraso e próximos vencimentos
 - **Planos** em cards: criar, editar e excluir (somente Admin, com confirmação de senha) e assinar um plano para um cliente
 - **Assinaturas**: listagem, edição de plano, ciclo e forma de pagamento, inativação e reativação
-- **Cobranças**: totais a receber, vencido e recebido; registro de pagamento e cancelamento (Admin); dias em atraso
+- **Cobranças**: totais a receber, vencido e recebido; registro de pagamento e cancelamento (Admin); dias em atraso; lembrete por e-mail; exportação em CSV
+- **Notificar vencidas**: no painel, envia lembrete por e-mail para todos os clientes em atraso
 - **Preço por ciclo**: ao assinar, mostra o valor do ciclo, o equivalente mensal e os meses grátis (semestral e anual)
 - **Usuários**: listagem e edição de dados
 - **Perfil** do usuário logado

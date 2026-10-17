@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Spinner, Table, Modal, Form, Button } from 'react-bootstrap';
-import { FaReceipt, FaFilter } from 'react-icons/fa';
+import { FaReceipt, FaFilter, FaFileCsv, FaEnvelope } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 import { Sidebar } from '../../components/Sidebar';
@@ -14,7 +14,7 @@ import { mensagemDeErro } from '../../services/api';
 import type { Cobranca, StatusCobranca } from '../../types/Cobranca';
 
 import {
-    MainWrapper, TableContainer, FilterContainer, ResumoGrid, ResumoCard, StatusBadge, BotaoAcao
+    MainWrapper, TableContainer, FilterContainer, ResumoGrid, ResumoCard, StatusBadge, BotaoAcao, BotaoExportar
 } from './styles';
 
 const moeda = (valor: number) => valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -33,9 +33,10 @@ export function Cobrancas() {
     const [formaPagamento, setFormaPagamento] = useState('Pix');
     const [salvando, setSalvando] = useState(false);
 
-    async function carregar() {
+    // Depois de uma ação, recarrega sem esconder a tabela (sem o spinner de página inteira)
+    async function carregar(mostrarCarregando = true) {
         try {
-            setLoading(true);
+            if (mostrarCarregando) setLoading(true);
             setCobrancas(await CobrancaService.getAll());
         } catch (error) {
             toast.error(mensagemDeErro(error, 'Erro ao carregar cobranças.'));
@@ -86,11 +87,29 @@ export function Cobrancas() {
             await CobrancaService.registrarPagamento(cobrancaSelecionada.id, dataPagamento, formaPagamento);
             toast.success('Pagamento registrado!');
             setCobrancaSelecionada(null);
-            carregar();
+            carregar(false);
         } catch (error) {
             toast.error(mensagemDeErro(error, 'Erro ao registrar pagamento.'));
         } finally {
             setSalvando(false);
+        }
+    }
+
+    async function enviarLembrete(cobranca: Cobranca) {
+        try {
+            const { message } = await CobrancaService.enviarLembrete(cobranca.id);
+            toast.success(message);
+            carregar(false);
+        } catch (error) {
+            toast.error(mensagemDeErro(error, 'Erro ao enviar lembrete.'));
+        }
+    }
+
+    async function exportar() {
+        try {
+            await CobrancaService.exportarCsv(filtroStatus ? { status: filtroStatus } : {});
+        } catch (error) {
+            toast.error(mensagemDeErro(error, 'Erro ao exportar cobranças.'));
         }
     }
 
@@ -100,7 +119,7 @@ export function Cobrancas() {
         try {
             await CobrancaService.cancelar(cobranca.id);
             toast.success('Cobrança cancelada.');
-            carregar();
+            carregar(false);
         } catch (error) {
             toast.error(mensagemDeErro(error, 'Erro ao cancelar cobrança.'));
         }
@@ -123,6 +142,9 @@ export function Cobrancas() {
                             <option value="Paga">Pagas</option>
                             <option value="Cancelada">Canceladas</option>
                         </Form.Select>
+                        <BotaoExportar type="button" onClick={exportar} title="Baixar as cobranças do filtro atual em CSV">
+                            <FaFileCsv /> Exportar CSV
+                        </BotaoExportar>
                     </FilterContainer>
                 </PageHeaderContainer>
 
@@ -177,6 +199,9 @@ export function Cobrancas() {
                                                         <td className="ps-3">
                                                             <div className="fw-bold text-dark">{c.clienteNome}</div>
                                                             <small className="text-muted">{c.planoNome} · {c.tipoRecorrencia}</small>
+                                                            {emAberto && !c.clienteEmail && (
+                                                                <div><small className="text-muted fst-italic">sem e-mail cadastrado</small></div>
+                                                            )}
                                                         </td>
                                                         <td><small>{data(c.periodoInicio)} a {data(c.periodoFim)}</small></td>
                                                         <td>
@@ -187,10 +212,18 @@ export function Cobrancas() {
                                                             {c.status === 'Paga' && (
                                                                 <div><small className="text-muted">pago em {data(c.dataPagamento)}</small></div>
                                                             )}
+                                                            {emAberto && c.ultimoLembrete && (
+                                                                <div><small className="text-muted"><FaEnvelope size={10} /> lembrete em {data(c.ultimoLembrete)}</small></div>
+                                                            )}
                                                         </td>
                                                         <td className="fw-bold">{moeda(c.valor)}</td>
                                                         <td><StatusBadge $status={c.status}>{c.status}</StatusBadge></td>
                                                         <td className="text-end pe-3 text-nowrap">
+                                                            {emAberto && c.clienteEmail && (
+                                                                <BotaoAcao $variante="lembrete" onClick={() => enviarLembrete(c)} title={`Enviar lembrete para ${c.clienteEmail}`}>
+                                                                    <FaEnvelope /> Lembrete
+                                                                </BotaoAcao>
+                                                            )}
                                                             {emAberto && (
                                                                 <BotaoAcao $variante="pagar" onClick={() => abrirPagamento(c)}>Registrar pagamento</BotaoAcao>
                                                             )}

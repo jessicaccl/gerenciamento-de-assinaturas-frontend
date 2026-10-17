@@ -4,6 +4,7 @@ export interface AssinaturaDto {
   id?: number;
   planoId: number;
   clienteNome?: string;
+  clienteEmail?: string | null;
   tipoRecorrencia: string;
   formaPagamento: string;
   status?: string; 

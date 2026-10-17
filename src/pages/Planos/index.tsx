@@ -40,6 +40,7 @@ export function Planos() {
   const [showSubscribeModal, setShowSubscribeModal] = useState(false);
   const [selectedPlano, setSelectedPlano] = useState<Plano | null>(null);
   const [subCliente, setSubCliente] = useState('');
+  const [subEmail, setSubEmail] = useState('');
   const [subCiclo, setSubCiclo] = useState('Mensal');
   const [ciclos, setCiclos] = useState<CicloDePreco[]>([]);
   const [subPagamento, setSubPagamento] = useState('Cartão de Crédito');
@@ -130,6 +131,7 @@ export function Planos() {
   function handleOpenSubscribe(plano: Plano) {
     setSelectedPlano(plano);
     setSubCliente('');
+    setSubEmail('');
     setSubCiclo('Mensal');
     setSubPagamento('Cartão de Crédito');
     setCiclos([]);
@@ -148,6 +150,7 @@ export function Planos() {
       await AssinaturaService.create({
         planoId: selectedPlano.id,
         clienteNome: subCliente,
+        clienteEmail: subEmail || null,
         tipoRecorrencia: subCiclo,
         formaPagamento: subPagamento
       });
@@ -346,6 +349,16 @@ export function Planos() {
                     placeholder="Nome do cliente ou empresa..."
                     value={subCliente}
                     onChange={e => setSubCliente(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                  <Form.Label className="fw-bold">E-mail do Cliente <small className="text-muted fw-normal">(opcional, para lembretes)</small></Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="cliente@empresa.com"
+                    value={subEmail}
+                    onChange={e => setSubEmail(e.target.value)}
                   />
                 </Form.Group>
 

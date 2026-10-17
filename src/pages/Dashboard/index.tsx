@@ -12,6 +12,7 @@ import PageContainer from '../../components/PageContainer';
 import PageHeaderContainer from '../../components/PageHeaderContainer';
 
 import ProvisaoService from '../../services/ProvisaoService';
+import CobrancaService from '../../services/CobrancaService';
 import { mensagemDeErro } from '../../services/api';
 import type { PainelDeProvisoes } from '../../types/Provisoes';
 
@@ -37,6 +38,7 @@ export function Dashboard() {
   const [painel, setPainel] = useState<PainelDeProvisoes | null>(null);
   const [mesesFuturos, setMesesFuturos] = useState(6);
   const [loading, setLoading] = useState(true);
+  const [notificando, setNotificando] = useState(false);
 
   useEffect(() => {
     async function carregar() {
@@ -51,6 +53,18 @@ export function Dashboard() {
     }
     carregar();
   }, [mesesFuturos]);
+
+  async function notificarVencidas() {
+    setNotificando(true);
+    try {
+      const { message } = await CobrancaService.notificarVencidas();
+      toast.success(message);
+    } catch (error) {
+      toast.error(mensagemDeErro(error, 'Erro ao enviar lembretes.'));
+    } finally {
+      setNotificando(false);
+    }
+  }
 
   const maiorFaixa = painel ? Math.max(...painel.aging.map(f => f.valor), 1) : 1;
   const dadosGrafico = painel?.previsao.map(p => ({ ...p, nome: nomeDoMes(p.mes) })) ?? [];
@@ -130,6 +144,11 @@ export function Dashboard() {
               <Painel>
                 <header>
                   <h3>Aging da inadimplência</h3>
+                  {painel.quantidadeVencida > 0 && (
+                    <button type="button" className="btn btn-sm btn-outline-danger" onClick={notificarVencidas} disabled={notificando}>
+                      {notificando ? <Spinner animation="border" size="sm" /> : `Notificar vencidas (${painel.quantidadeVencida})`}
+                    </button>
+                  )}
                 </header>
                 {painel.aging.map(faixa => (
                   <FaixaAging

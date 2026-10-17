@@ -17,6 +17,7 @@ import { MainWrapper, TableContainer, ActionButton, FilterContainer } from './st
 interface Assinatura {
     id: number;
     clienteNome: string;
+    clienteEmail?: string | null;
     planoId: number;
     tipoRecorrencia: string;
     formaPagamento: string;
@@ -44,6 +45,7 @@ export function Assinaturas() {
     const [editCiclo, setEditCiclo] = useState('');
     const [editPagamento, setEditPagamento] = useState('');
     const [editStatus, setEditStatus] = useState(''); 
+    const [editEmail, setEditEmail] = useState('');
 
     useEffect(() => {
         async function loadData() {
@@ -68,7 +70,8 @@ export function Assinaturas() {
         setEditPlanoId(assinatura.planoId);
         setEditCiclo(assinatura.tipoRecorrencia);
         setEditPagamento(assinatura.formaPagamento);
-        setEditStatus(assinatura.status); 
+        setEditStatus(assinatura.status);
+        setEditEmail(assinatura.clienteEmail ?? '');
         setShowEditModal(true);
     }
 
@@ -86,6 +89,7 @@ export function Assinaturas() {
 
             await AssinaturaService.update(selectedAssinatura.id, {
                 planoId: editPlanoId,
+                clienteEmail: editEmail,
                 tipoRecorrencia: editCiclo,
                 formaPagamento: editPagamento
             });
@@ -95,7 +99,7 @@ export function Assinaturas() {
 
             setAssinaturas(oldList => oldList.map(item =>
                 item.id === selectedAssinatura.id
-                    ? { ...item, planoId: editPlanoId, tipoRecorrencia: editCiclo, formaPagamento: editPagamento, status: editStatus }
+                    ? { ...item, planoId: editPlanoId, clienteEmail: editEmail || null, tipoRecorrencia: editCiclo, formaPagamento: editPagamento, status: editStatus }
                     : item
             ));
 
@@ -181,6 +185,7 @@ export function Assinaturas() {
                                                 <td className="ps-4">
                                                     <div className="fw-bold text-dark">{item.clienteNome}</div>
                                                     <small className="text-muted">Plano: {getPlanoNome(item.planoId)}</small>
+                                                    {item.clienteEmail && <div><small className="text-muted">{item.clienteEmail}</small></div>}
                                                 </td>
                                                 <td>{item.tipoRecorrencia} <br /><small>{item.formaPagamento}</small></td>
                                                 <td>{formatDate(item.dataInicio)} - <span className="text-danger">{formatDate(item.dataExpiracao)}</span></td>
@@ -224,6 +229,10 @@ export function Assinaturas() {
                             </Col>
                         </Row>
                         <hr />
+                        <Form.Group className="mb-3">
+                            <Form.Label>E-mail do cliente <small className="text-muted">(para lembretes de cobrança)</small></Form.Label>
+                            <Form.Control type="email" placeholder="cliente@empresa.com" value={editEmail} onChange={e => setEditEmail(e.target.value)} />
+                        </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Plano</Form.Label>
                             <Form.Select value={editPlanoId} onChange={e => setEditPlanoId(Number(e.target.value))}>
